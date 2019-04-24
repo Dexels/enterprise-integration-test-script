@@ -1,18 +1,23 @@
 Feature: Test a basic navajo service
 
 	Background:
-	  * def baseUrl = 'http://localhost:8181'
+	  * print systemURL
+#	  * def baseUrl =  $systemURL
+		* def baseUrl = typeof systemURL == 'undefined' ? 'http://localhost:8181' : systemURL
+		* print "PaseURL is now: "+baseUrl
 	  * def consoleAuth = 'Basic YWRtaW46YWRtaW4='
 	  * def navajoAuth = 'Basic YTph'
 	  * def defaultTenant = 'Tenant1'
 	  
   Scenario: Test if the navajo tester is available
 		Given url baseUrl+"/tester.html"
+		* print "Using url: "+baseUrl+"/tester.html"
 		When method get
 		Then status 200
 
   Scenario: Test if the system console is available
 		Given url baseUrl+"/system/console"
+		* print "Using url: "+baseUrl+"/system/console"
 		When header Authorization = consoleAuth
 		When method get
 		Then status 200
@@ -25,14 +30,14 @@ Feature: Test a basic navajo service
 		And match response == '#[_>4]'
 
   Scenario: Test if the navajo tenants are what we expect:
-		Given url 'http://localhost:8181/testerapi?query=gettenants'
+		Given url baseUrl+'/testerapi?query=gettenants'
 		When method get
 		Then status 200
 		And assert response.length == 1
 		And match response[0] == defaultTenant
 		
   Scenario: Testing an entity:
-		Given url 'http://localhost:8181/entity/movie/ActorList'
+		Given url baseUrl+'/entity/movie/ActorList'
 		When header Authorization = navajoAuth
 		And header X-Navajo-Instance = 'Tenant1'
 	  And header Accept = 'application/json'

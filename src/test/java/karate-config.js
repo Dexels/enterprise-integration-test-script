@@ -1,18 +1,17 @@
-function fn() {    
-  var env = karate.env; // get system property 'karate.env'
-  karate.log('karate.env system property was:', env);
-  if (!env) {
-    env = 'dev';
-  }
+function() {
+  var systemURL = java.lang.System.getenv('URL');
+  karate.log('System URL system property was:', systemURL);
+  var evars= java.lang.System.getenv();
+  karate.log(evars);
   var config = {
-    env: env,
+    systemURL: systemURL,
 	myVarName: 'someValue'
   }
-  if (env == 'dev') {
+//  if (env == 'dev') {
     // customize
     // e.g. config.foo = 'bar';
-  } else if (env == 'e2e') {
+//  } else if (env == 'e2e') {
     // customize
-  }
+//  }
   return config;
 }
