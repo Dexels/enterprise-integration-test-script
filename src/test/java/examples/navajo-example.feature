@@ -2,7 +2,7 @@ Feature: Test a basic navajo service
 
 	Background:
 		* print systemURL
-		* def systemURL = 'http://localhost:8181/'
+		* def systemURL = 'http://navajo:8181/'
 		* def baseUrl =  $systemURL
 		#* def baseUrl = typeof systemURL == 'undefined' ? 'http://localhost:8181' : systemURL
 		* def username = 'user'
