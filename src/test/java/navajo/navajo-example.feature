@@ -8,7 +8,6 @@ Feature: Test a basic navajo service
 		* def username = 'user'
 		* def password = 'pass'
 		* def tenant = 'Tenant1'
-		* print "PaseURL is now: "+baseUrl
 		* def consoleAuth = 'Basic YWRtaW46YWRtaW4='
 		* def navajoAuth = 'Basic YTph'
 		* def defaultTenant = 'Tenant1'
