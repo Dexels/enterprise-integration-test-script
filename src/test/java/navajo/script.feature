@@ -60,6 +60,7 @@ Feature: Test a basic navajo service
 		And header X-Navajo-Service =  service
 		And header X-Navajo-Username = username
 		And header X-Navajo-Password = password
+		And header Accept-Encoding = "identity"
 		And method post
 		Then status 200
 		And match response //tml//message//message//message[@index='1']//property[@name='FirstName']//@value == 'Nick'
@@ -74,6 +75,7 @@ Feature: Test a basic navajo service
 		And header X-Navajo-Service =  service
 		And header X-Navajo-Username = username
 		And header X-Navajo-Password = password
+		And header Accept-Encoding = "identity"
 		And method post
 		Then status 200
 		And match response //tml//message//message[@index='0']//property[@name='title']//@value == 'Chamber Italian'
