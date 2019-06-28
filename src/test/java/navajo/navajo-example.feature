@@ -64,3 +64,14 @@ Feature: Test a basic navajo service
 		When method get
 		Then status 200
 		And assert response.length < 10000
+
+	Scenario: Test if the monitor webapp works
+		Given url baseUrl+'Monitor/index.html'
+		When method get
+		Then status 200
+
+	Scenario: Test if the monitor webapp api
+		Given url baseUrl+'monitor_api/table/Tenant1/service'
+		When method get
+		Then status 200
+		And assert response.data.length > 3
