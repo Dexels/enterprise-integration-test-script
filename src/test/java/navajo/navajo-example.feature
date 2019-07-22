@@ -2,11 +2,11 @@ Feature: Test a basic navajo service
 
 	Background:
 		* print systemURL
-		* def systemURL = 'http://navajo:8181/'
+		* def systemURL = 'http://navajo:8181'
 		* def baseUrl =  $systemURL
 		#* def baseUrl = typeof systemURL == 'undefined' ? 'http://localhost:8181' : systemURL
-		* def username = 'user'
-		* def password = 'pass'
+		* def username = 'exampleuser'
+		* def password = 'secretpassword'
 		* def tenant = 'Tenant1'
 		* def consoleAuth = 'Basic YWRtaW46YWRtaW4='
 		* def navajoAuth = 'Basic YTph'
@@ -49,9 +49,9 @@ Feature: Test a basic navajo service
 
 
 	# Match on something better
-	@ignore #ignore for now, too noisy
+	@#ignore for now, too noisy
 	Scenario: Test if the entity documentation works
-		Given url baseUrl+'entityDocumentation/movie'
+		Given url baseUrl+'/entityDocumentation/movie'
 		When method get
 		Then status 200
 		And assert response.length > 10000
@@ -60,18 +60,18 @@ Feature: Test a basic navajo service
 	@ignore #ignore for now, too noisy
 
 	Scenario: Test if non existing entity documentation fails
-		Given url baseUrl+'entityDocumentation/movieaaaap'
+		Given url baseUrl+'/entityDocumentation/movieaaaap'
 		When method get
 		Then status 200
 		And assert response.length < 10000
 
 	Scenario: Test if the monitor webapp works
-		Given url baseUrl+'Monitor/index.html'
+		Given url baseUrl+'/Monitor/index.html'
 		When method get
 		Then status 200
 
 	Scenario: Test if the monitor webapp api
-		Given url baseUrl+'monitor_api/table/Tenant1/service'
+		Given url baseUrl+'/monitor_api/table/Tenant1/service'
 		When method get
 		Then status 200
 		And assert response.data.length > 3
