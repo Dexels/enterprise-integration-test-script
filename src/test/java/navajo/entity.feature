@@ -1,16 +1,13 @@
 Feature: Test a basic navajo service
 
 	Background:
-		* print systemURL
 		* def systemURL = 'http://navajo:8181'
 		* def baseUrl =  $systemURL
-		#* def baseUrl = typeof systemURL == 'undefined' ? 'http://localhost:8181' : systemURL
 		* def username = 'exampleuser'
 		* def password = 'secretpassword'
 		* def tenant = 'Tenant1'
-		* print "ParseURL is now: "+baseUrl
-		* def consoleAuth = 'Basic YWRtaW46YWRtaW4='
-		* def navajoAuth = 'Basic ZXhhbXBsZXVzZXI6c2VjcmV0cGFzc3dvcmQ='
+		* def consoleAuth = call read('basic-auth.js') { username: 'admin', password: 'admin' }
+		* def navajoAuth = call read('basic-auth.js') { username: #(username), passxword: #(password) }
 		* def defaultTenant = 'Tenant1'
 
 	Scenario: Testing an entity:

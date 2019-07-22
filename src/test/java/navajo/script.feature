@@ -1,13 +1,11 @@
 Feature: Test a basic navajo service
 
 	Background:
-		* print systemURL
 		* def systemURL = 'http://navajo:8181'
 		* def baseUrl =  $systemURL
 		* def username = 'exampleuser'
 		* def password = 'secretpassword'
 		* def tenant = 'Tenant1'
-		* print "PaseURL is now: "+baseUrl
 		* def consoleAuth = call read('basic-auth.js') { username: 'admin', password: 'admin' }
 		* def navajoAuth = call read('basic-auth.js') { username: #(username), passxword: #(password) }
 		* def defaultTenant = 'Tenant1'
