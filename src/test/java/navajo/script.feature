@@ -93,5 +93,5 @@ Feature: Test a basic navajo service
 		* remove response  /tml/header
 		* def count = $response // @value
 		* print "Count is :"+(count > 4)
-		* assert count > 4
+		* assert count > 0
 
