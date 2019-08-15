@@ -72,4 +72,4 @@ Feature: Test a basic navajo service
 		Given url baseUrl+'/monitor_api/table/Tenant1/service'
 		When method get
 		Then status 200
-		And assert response.data.length > 3
+		And assert response.data.length > 1
