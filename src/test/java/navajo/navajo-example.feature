@@ -9,6 +9,7 @@ Feature: Test a basic navajo service
 		* def consoleAuth = call read('basic-auth.js') { username: 'admin', password: 'admin' }
 		* def navajoAuth = call read('basic-auth.js') { username: #(username), passxword: #(password) }
 		* def defaultTenant = 'Tenant1'
+		* configure retry = { count: 5, interval: 500 }
 
 	Scenario: Test if the navajo tester is available
 		Given url baseUrl+"/tester.html"
@@ -29,7 +30,7 @@ Feature: Test a basic navajo service
 		When method get
 		Then status 200
 		And match response !contains 'installed'
-		And match response !contains 'resolved'
+		And match response !contains 'Resolved'
 
 	Scenario: Test if the navajo tester backend is available
 		Given url baseUrl+'/testerapi?query=getscripts'
