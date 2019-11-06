@@ -25,6 +25,17 @@ Feature: Test a basic navajo service
 		And match response //tml//message[@name='ActorList']//message[@name='Actor']//message[@index='1']//property[@name='FirstName']//@value == 'Nick'
 		And match response //tml//message//message//message[@index='2']//property[@name='FirstName']//@value == 'Ed'
 
+	Scenario: Testing tenantless and authless:
+		* def service = 'InitTest'
+		Given url baseUrl+'/navajo'
+		Given request <tml><header><transaction rpc_name="#(service)"/></header></tml>
+		When  header X-Navajo-Service =  service
+		And method post
+		Then status 200
+		And match response //tml//message[@name='error'] == '#notpresent'
+		And match response //tml//message[@name='pipo'] == '#present'
+
+
 	Scenario: Testing regular script with input:
 		* def service = 'movie/Actor'
 		Given url baseUrl+'/navajo'
