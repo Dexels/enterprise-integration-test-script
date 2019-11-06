@@ -44,7 +44,6 @@ Feature: Test a basic navajo service
 		When method get
 		Then status 200
 		And assert response.length == 0
-		And match response[0] == defaultTenant
 
 
 	# Match on something better
