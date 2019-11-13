@@ -30,11 +30,20 @@ Feature: Test a basic navajo service
 		Given url baseUrl+'/navajo'
 		Given request <tml><header><transaction rpc_name="#(service)"/></header></tml>
 		When  header X-Navajo-Service =  service
+		And header X-Navajo-Instance = tenant
 		And method post
 		Then status 200
 		And match response //tml//message[@name='error'] == '#notpresent'
 		And match response //tml//message[@name='pipo'] == '#present'
 
+	Scenario: Testing service that should time out:
+		* def service = 'InitSleep'
+		Given url baseUrl+'/navajo'
+		Given request <tml><header><transaction rpc_name="#(service)"/></header></tml>
+		When  header X-Navajo-Service =  service
+		And header X-Navajo-Instance = tenant
+		And method post
+		Then status 500
 
 	Scenario: Testing regular script with input:
 		* def service = 'movie/Actor'

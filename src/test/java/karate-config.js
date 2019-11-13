@@ -1,23 +1,20 @@
-function() {
-  var systemURL;
-  systemURL = java.lang.System.getenv('URL');
-  if(systemURL == null) {
-    systemURL = "http://navajo:8181/"
+function conf() {
+  var address = karate.properties["navajo.address"]; // get java system property 'karate.env'
+
+  if (!address) {
+    karate.properties["navajo.address"] = "http://localhost:9090";
   }
-  if(systemURL == "") {
-    systemURL = "http://navajo:8181/"
-  }
-  karate.log('System URL system property was:', systemURL);
-  var evars= java.lang.System.getenv();
-  var config = {
-    systemURL: systemURL,
-	  myVarName: 'someValue'
-  }
-//  if (env == 'dev') {
-    // customize
-    // e.g. config.foo = 'bar';
-//  } else if (env == 'e2e') {
-    // customize
-//  }
+
+  karate.log("props:", karate.properties["navajo.address"]);
+  karate.configure("connectTimeout", 10000);
+  karate.configure("readTimeout", 10000);
+  //  if (env == 'dev') {
+  // customize
+  // e.g. config.foo = 'bar';
+  //  } else if (env == 'e2e') {
+  // customize
+  //  }
+  var config = {};
+  config.URL = karate.properties["navajo.address"];
   return config;
 }
