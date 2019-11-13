@@ -2,7 +2,7 @@ function conf() {
   var address = karate.properties["navajo.address"]; // get java system property 'karate.env'
 
   if (!address) {
-    karate.properties["navajo.address"] = "http://localhost:9090";
+    karate.properties["navajo.address"] = "http://navajo:8181";
   }
 
   karate.log("props:", karate.properties["navajo.address"]);

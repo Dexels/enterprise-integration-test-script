@@ -1,8 +1,7 @@
 Feature: Test a basic navajo service
 
 	Background:
-		* def systemURL = 'http://navajo:8181'
-		* def baseUrl =  $systemURL
+		* def systemURL = karate.properties['navajo.address']
 		* def username = 'exampleuser'
 		* def password = 'secretpassword'
 		* def tenant = 'Tenant1'
@@ -13,7 +12,7 @@ Feature: Test a basic navajo service
 
 	Scenario: Testing regular script:
 		* def service = 'movie/ActorList'
-		Given url baseUrl+'/navajo'
+		Given url systemURL+'/navajo'
 		Given request <tml><header><transaction rpc_pwd="#(password)" rpc_name="#(service)" rpc_usr="#(username)"/></header></tml>
 		When header Authorization = navajoAuth
 		And header X-Navajo-Instance = tenant
@@ -27,7 +26,7 @@ Feature: Test a basic navajo service
 
 	Scenario: Testing tenantless and authless:
 		* def service = 'InitTest'
-		Given url baseUrl+'/navajo'
+		Given url systemURL+'/navajo'
 		Given request <tml><header><transaction rpc_name="#(service)"/></header></tml>
 		When  header X-Navajo-Service =  service
 		And header X-Navajo-Instance = tenant
@@ -38,7 +37,7 @@ Feature: Test a basic navajo service
 
 	Scenario: Testing service that should time out:
 		* def service = 'InitSleep'
-		Given url baseUrl+'/navajo'
+		Given url systemURL+'/navajo'
 		Given request <tml><header><transaction rpc_name="#(service)"/></header></tml>
 		When  header X-Navajo-Service =  service
 		And header X-Navajo-Instance = tenant
@@ -47,7 +46,7 @@ Feature: Test a basic navajo service
 
 	Scenario: Testing regular script with input:
 		* def service = 'movie/Actor'
-		Given url baseUrl+'/navajo'
+		Given url systemURL+'/navajo'
 		Given request
 			"""
 			<tml>
@@ -71,7 +70,7 @@ Feature: Test a basic navajo service
 
 	Scenario: Testing regular script over reactive endpoint:
 		* def service = 'movie/ActorList'
-		Given url baseUrl+'/stream'
+		Given url systemURL+'/stream'
 		Given request <tml><header><transaction rpc_pwd="#(password)" rpc_name="#(service)" rpc_usr="#(username)"/></header></tml>
 		When header Authorization = navajoAuth
 		And header X-Navajo-Instance = tenant
@@ -86,7 +85,7 @@ Feature: Test a basic navajo service
 
 	Scenario: Testing reactive script over reactive endpoint:
 		* def service = 'films'
-		Given url baseUrl+'/stream'
+		Given url systemURL+'/stream'
 		Given request <tml><header><transaction rpc_pwd="#(password)" rpc_name="#(service)" rpc_usr="#(username)"/></header></tml>
 		When header Authorization = navajoAuth
 		And header X-Navajo-Instance = tenant
@@ -101,7 +100,7 @@ Feature: Test a basic navajo service
 
 	Scenario: Testing access store to see if actual access objects are showing up:
 		* def service = 'navajo/AccessCount'
-		Given url baseUrl+'/navajo'
+		Given url systemURL+'/navajo'
 		Given request <tml><header><transaction rpc_pwd="#(password)" rpc_name="#(service)" rpc_usr="#(username)"/></header></tml>
 		When header Authorization = navajoAuth
 		And header X-Navajo-Instance = tenant

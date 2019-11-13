@@ -2,7 +2,6 @@ Feature: Test a basic navajo service
 
 	Background:
 		* def systemURL = karate.properties['navajo.address']
-		* def baseUrl =  URL
 		* def username = 'exampleuser'
 		* def password = 'secretpassword'
 		* def tenant = 'Tenant1'
@@ -11,8 +10,7 @@ Feature: Test a basic navajo service
 		* def defaultTenant = 'Tenant1'
 
 	Scenario: Testing an entity:
-		Given url baseUrl+'/entity/movie/ActorList'
-		* print ( 'sys: '+url)
+		Given url systemURL+'/entity/movie/ActorList'
 		When header Authorization = navajoAuth
 		And header X-Navajo-Instance = 'Tenant1'
 		And header Accept = 'application/json'
