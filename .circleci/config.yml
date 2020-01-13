@@ -1,6 +1,9 @@
 version: 2
 jobs:
   build:
+    branches:
+      ignore:
+        - Issue-518-sendThrough-field-NavajoMap
     machine:
       image: circleci/classic:edge
     steps:
