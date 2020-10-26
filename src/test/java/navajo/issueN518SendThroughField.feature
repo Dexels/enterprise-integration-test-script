@@ -69,7 +69,7 @@ Feature: Test issue 518
         And match response //tml//message[@name='FalseParameter']//message//message[@name='SimpleMessage2']//property//@value == 'Value2'
         And match response count(//tml//message[@name='FalseParameter']//message//message[@name='SimpleMessage3']) == 0
     
-    Scenario: Testing issue518 - no send through field
+    Scenario: Testing issue518 - true send through field
         * def service = 'test/Issue518/TestCallerTrue'
         Given url systemURL + '/navajo'
         Given request
