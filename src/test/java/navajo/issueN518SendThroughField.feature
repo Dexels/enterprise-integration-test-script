@@ -8,7 +8,7 @@ Feature: Test issue 518
         * def navajoAuth = call read('basic-auth.js') { username: #(username), password: #(password) }
 
     Scenario: Testing issue518 - no send through field
-        * def service = 'test/Issue518/TestCallerNone'
+        * def service = 'test/IssueNavajo518/TestCallerNone'
         Given url systemURL + '/navajo'
         Given request
             """
@@ -39,7 +39,7 @@ Feature: Test issue 518
         And match response count(//tml//message[@name='NoParameter']//message//message[@name='SimpleMessage3']) == 0
 
     Scenario: Testing issue518 - false send through field
-        * def service = 'test/Issue518/TestCallerFalse'
+        * def service = 'test/IssueNavajo518/TestCallerFalse'
         Given url systemURL + '/navajo'
         Given request
             """
@@ -70,7 +70,7 @@ Feature: Test issue 518
         And match response count(//tml//message[@name='FalseParameter']//message//message[@name='SimpleMessage3']) == 0
     
     Scenario: Testing issue518 - true send through field
-        * def service = 'test/Issue518/TestCallerTrue'
+        * def service = 'test/IssueNavajo518/TestCallerTrue'
         Given url systemURL + '/navajo'
         Given request
             """
