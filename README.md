@@ -11,3 +11,7 @@ If we want to connect somewhere else (for example running from a local Eclipse i
 
 mvn test -Dnavajo.address=http://localhost:9090
 
+The tests use the Karate framework. See:
+* https://github.com/intuit/karate/
+* https://www.youtube.com/watch?v=yu3uupBZyxc
+
