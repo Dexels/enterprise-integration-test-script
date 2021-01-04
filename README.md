@@ -7,8 +7,8 @@ mvn test
 ```
 
 By default the tests will look for a navajo server at `http://navajo:8181`. The tests expect a running navajo instance
-with test data as provided by the [navajo-basic-environment](https://github.com/Dexels/navajo-basic-environment) repository.
-The `navajo-basic-environment` repository provides a script `run.sh`, which uses docker-compose to start the required
+with test data as provided by the [enterprise-integration-test-env](https://github.com/Dexels/enterprise-integration-test-env) repository.
+The `enterprise-integration-test-env` repository provides a script `run.sh`, which uses docker-compose to start the required
 containers, in the appropriate docker network.
 
 Alternatively, you can run the navajo instance in a local Eclipse workspace. In which case you need to supply the tests
