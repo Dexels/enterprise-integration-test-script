@@ -1,24 +1,44 @@
-version: 2
+version: 2.1
 jobs:
   build:
-    branches:
-      only:
-        - master
-    machine:
-      image: circleci/classic:edge
+    docker:
+    - image: cimg/base:latest
+      auth:
+        username: $DOCKERHUB_USER
+        password: $DOCKERHUB_PASS
     steps:
-      - checkout
-      - run: |
+    - checkout
+      # See https://circleci.com/docs/2.0/building-docker-images/
+    - setup_remote_docker:
+        version: 19.03.13
+
+    - run:
+        name: Log in with docker registries
+        command: |
           docker --version
-          docker login -u $DOCKER_USER -p $DOCKER_PASS
-      - run: |
+          echo $DOCKERHUB_PASS | docker login --username $DOCKERHUB_USER --password-stdin
+
+    - run:
+        name: Build and push `enterprise-integration-test-script` docker image
+        command: |
           pwd
           ls -l
           MINORTAG=0.1
-          IMAGE=dexels/navajo.example.test
+          IMAGE=dexels/enterprise-integration-test-script
           BASETAG=${MINORTAG}.${CIRCLE_BUILD_NUM}
           echo "Tagging for: ${IMAGE}:${MINORTAG}.${CIRCLE_BUILD_NUM}"
           docker build . -t ${IMAGE}:${MINORTAG}.${CIRCLE_BUILD_NUM} -t ${IMAGE}:latest
           docker push ${IMAGE}:${MINORTAG}.${CIRCLE_BUILD_NUM}
           docker push ${IMAGE}:latest
 
+workflows:
+  version: 2
+  build:
+    jobs:
+    - build:
+        context:
+        - dexels_docker_hub
+        filters:
+          branches:
+            only:
+              - master
