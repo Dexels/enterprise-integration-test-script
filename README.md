@@ -1,4 +1,4 @@
-### Test setup for Navajo
+### Test setup for Navajo (OSS) and Navajo Enterprise
 
 Run as maven test:
 
