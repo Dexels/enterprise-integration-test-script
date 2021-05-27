@@ -1,4 +1,4 @@
-Feature: Test issue 518
+Feature: Test Navajo issue 518
 
     Background:
         * def systemURL = karate.properties['navajo.address']
