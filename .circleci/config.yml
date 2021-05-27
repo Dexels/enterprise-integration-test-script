@@ -3,50 +3,50 @@ jobs:
 
   build:
     docker:
-    - image: cimg/base:2021.01
-      auth:
-        username: $DOCKERHUB_USER
-        password: $DOCKERHUB_PASS
+      - image: cimg/base:2021.01
+          auth:
+            username: $DOCKERHUB_USER
+            password: $DOCKERHUB_PASS
 
     steps:
-    - checkout
+      - checkout
 
-    - setup_remote_docker:
-        version: 19.03.13
+      - setup_remote_docker:
+          version: 19.03.13
 
-    - run:
-        name: Log in with docker registries
-        command: |
-          docker --version
-          echo $DOCKERHUB_PASS | docker login --username $DOCKERHUB_USER --password-stdin
+      - run:
+          name: Log in with docker registries
+          command: |
+            docker --version
+            echo $DOCKERHUB_PASS | docker login --username $DOCKERHUB_USER --password-stdin
 
-    - run:
-        name: Build and push `enterprise-integration-test-script` docker image
-        command: |
-          SUFFIX=$([[ $CIRCLE_BRANCH = "master" ]] && echo "" || echo "-$CIRCLE_BRANCH")
+      - run:
+          name: Build and push `enterprise-integration-test-script` docker image
+          command: |
+            SUFFIX=$([[ $CIRCLE_BRANCH = "master" ]] && echo "" || echo "-$CIRCLE_BRANCH")
 
-          TARGET_IMAGE="dexels/enterprise-integration-test-script"
-          TARGET_PREFIX="0.1"
-          TARGET_VERSION="${TARGET_PREFIX}.${CIRCLE_BUILD_NUM}${SUFFIX}"
-          TARGET="${TARGET_IMAGE}:${TARGET_VERSION}"
+            TARGET_IMAGE="dexels/enterprise-integration-test-script"
+            TARGET_PREFIX="0.1"
+            TARGET_VERSION="${TARGET_PREFIX}.${CIRCLE_BUILD_NUM}${SUFFIX}"
+            TARGET="${TARGET_IMAGE}:${TARGET_VERSION}"
 
-          echo "Building: '${TARGET}'"
-          pwd
-          ls -l
-          docker build . -t "${TARGET_VERSION}" -t "${IMAGE}:latest${SUFFIX}"
-          docker push "${TARGET_VERSION}"
-          docker push "${IMAGE}:latest${SUFFIX}"
+            echo "Building: '${TARGET}'"
+            pwd
+            ls -l
+            docker build . -t "${TARGET_VERSION}" -t "${IMAGE}:latest${SUFFIX}"
+            docker push "${TARGET_VERSION}"
+            docker push "${IMAGE}:latest${SUFFIX}"
 
 workflows:
   version: 2
-  workflow:
+  build:
     jobs:
       - build:
-        context:
-          - dexels_docker_hub
-        filters:
-          branches:
-            only:
-              - master
-              - test
+          context:
+            - dexels_docker_hub
+          filters:
+            branches:
+              only:
+                - master
+                - test
 
