@@ -33,9 +33,9 @@ jobs:
             echo "Building: '${TARGET}'"
             pwd
             ls -l
-            docker build . -t "${TARGET_VERSION}" -t "${IMAGE}:latest${SUFFIX}"
+            docker build . -t "${TARGET_VERSION}" -t "${TARGET_IMAGE}:latest${SUFFIX}"
             docker push "${TARGET_VERSION}"
-            docker push "${IMAGE}:latest${SUFFIX}"
+            docker push "${TARGET_IMAGE}:latest${SUFFIX}"
 
 workflows:
   version: 2
